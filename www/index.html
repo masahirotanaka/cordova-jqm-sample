@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script src="components/loader.js"></script>
+    <link rel="stylesheet" href="components/loader.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        $(document).ready(function() {
+            $.getJSON( "data/languages.json", function( data ) {
+                var output = '';
+                $.each(data, function (index, value) {
+                    console.log(index);
+                    $.each(value, function (sub_index, sub_value) {
+                        output += '<li><a href="#">' + sub_value + '</a></li>';
+                    });
+                });
+               $('#languageList').html(output).listview("refresh");
+            });
+            
+            $('#languageList').on('click', 'li', function () {
+                window.location.href = "#detail_page";
+                var selected = $(this).text();
+                $('#item_title').text(selected);
+                $('#item_content').text(selected);
+            });
+        });
+    </script>
+</head>
+<body>
+    <div data-role="page" id="top_page"> 
+        <div data-role="header" data-position="fixed"> 
+            <h1>Languages List</h1> 
+        </div> 
+            <ul data-role="listview" data-inset="true" id="languageList" data-autodividers="true" data-corners="false"></ul>       
+    </div> 
+    
+    <div data-role="page" id="detail_page"> 
+        <div data-role="header"> 
+            <a href="#" data-icon="back" data-rel="back">Back</a>
+            <h1 id="item_title"></h1> 
+        </div> 
+        <div data-role="content">
+            <p id ="item_content"></p>
+    	</div> 
+    </div> 
+    
+</body>
+</html>
